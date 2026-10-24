@@ -34,12 +34,6 @@
 
 Explore the live application and test it with sample suspicious messages.
 
-> **Hackathon Project:** [Your Hackathon Name]  
-> **Team:** [Your Team Name]  
-> **Theme:** Cybersecurity / Digital Safety
-
----
-
 ## 💡 About the Project
 
 SurakshaCheck is an AI-powered digital safety assistant that helps users analyze suspicious messages and links to identify common scam indicators.
