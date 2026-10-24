@@ -1,312 +1,468 @@
 
-/* SurakshaCheck — final layout and light theme fix */
+/* ==================================================
+   SURAKHACHECK — COMPLETE PREMIUM ANIMATION PACK
+   Page • Hero • Buttons • Input • Results • Safety
+   ================================================== */
 
-* {
-  box-sizing: border-box;
+:root {
+  --sc-blue: #315fce;
+  --sc-blue-light: #4b83ef;
+  --sc-teal: #0b9eaa;
+  --sc-ink: #172c49;
+  --sc-muted: #687c96;
+  --sc-border: #dce6f3;
+  --sc-glow: rgba(49, 95, 206, 0.18);
 }
 
+/* 1. Smooth page and selection */
 html {
-  min-width: 320px;
-  background: #f3f6fb;
+  scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background: #f3f6fb;
-  color: #20334b;
+  -webkit-font-smoothing: antialiased;
 }
 
-button,
-textarea,
-input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
+::selection {
+  color: #17335c;
+  background: #d8e7ff;
 }
 
 .app-shell {
-  min-height: 100vh;
-  overflow-x: hidden;
+  isolation: isolate;
+  animation: scPageFade 650ms ease both;
+}
+
+@keyframes scPageFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 2. Subtle animated background */
+.app-shell {
   background:
-    radial-gradient(ellipse at 15% 0%, rgba(67, 119, 220, 0.08), transparent 35%),
+    radial-gradient(ellipse at 10% 5%, rgba(65, 117, 222, .09), transparent 35%),
+    radial-gradient(ellipse at 95% 35%, rgba(11, 158, 170, .06), transparent 30%),
     #f3f6fb;
+  background-size: 100% 100%;
 }
 
+.app-shell::before {
+  animation: scBackgroundDrift 18s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes scBackgroundDrift {
+  from { transform: translate3d(-5px, 0, 0); }
+  to { transform: translate3d(8px, 10px, 0); }
+}
+
+/* 3. Header and logo */
 .topbar {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 15px max(22px, calc((100vw - 1080px) / 2));
-  background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid #e1e8f2;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(16px);
+  transition: box-shadow 250ms ease, background 250ms ease;
 }
 
-.main-content {
-  width: min(100% - 36px, 900px);
-  margin-inline: auto;
+.brand {
+  transition: transform 220ms ease;
 }
 
-.hero {
-  padding: 66px 0 36px;
+.brand:hover {
+  transform: translateY(-1px);
+}
+
+.brand-icon {
+  transition: transform 350ms ease, box-shadow 300ms ease;
+}
+
+.brand:hover .brand-icon {
+  transform: rotate(-6deg) scale(1.06);
+  box-shadow: 0 6px 18px rgba(49, 95, 206, .18);
+}
+
+.language-toggle {
+  transition: background 200ms ease, border-color 200ms ease,
+    transform 200ms ease;
+}
+
+.language-toggle:hover {
+  transform: translateY(-1px);
+}
+
+/* 4. Hero content entrance */
+.hero .eyebrow {
+  animation: scRiseIn 650ms 80ms both;
 }
 
 .hero h1 {
-  color: #182d49;
-  font-size: clamp(42px, 6vw, 66px);
-  line-height: 1.1;
-  letter-spacing: -2px;
+  animation: scRiseIn 750ms 160ms both;
 }
 
+.hero > p {
+  animation: scRiseIn 750ms 260ms both;
+}
+
+@keyframes scRiseIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 5. Animated gradient headline */
 .hero h1 span {
-  color: #2864ce;
+  background-size: 200% 100%;
+  animation: scGradientMove 6s ease-in-out infinite alternate;
 }
 
-.hero > p,
-.section-description,
-.tip p {
-  color: #6c7d95;
-  line-height: 1.8;
+@keyframes scGradientMove {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
 }
 
-.analyzer-panel,
-.result-panel {
-  position: relative;
-  padding: 28px;
-  margin-bottom: 24px;
-  background: #fff;
-  border: 1px solid #e1e8f2;
-  border-radius: 20px;
-  box-shadow: 0 12px 35px rgba(31, 55, 88, 0.06);
+/* 6. Status indicator pulse */
+.status-dot {
+  animation: scDotPulse 2.4s ease-in-out infinite;
 }
 
-.panel-heading {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
+@keyframes scDotPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 3px rgba(23, 168, 132, .10);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(23, 168, 132, .04);
+  }
 }
 
-.panel-heading h2,
-.result-panel h2,
-.explanation-section h3,
-.recommendations-section h3 {
-  color: #1c304b;
+/* 7. Analyzer card */
+.analyzer-panel {
+  animation: scCardEnter 750ms 180ms cubic-bezier(.2, .7, .2, 1) both;
+  transition: border-color 250ms ease, box-shadow 250ms ease,
+    transform 250ms ease;
 }
 
+.analyzer-panel:hover {
+  border-color: #cbdaf0;
+  box-shadow:
+    0 22px 58px rgba(31, 58, 98, .085),
+    0 4px 12px rgba(31, 58, 98, .035);
+}
+
+@keyframes scCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.panel-heading h2 {
+  transition: color 200ms ease;
+}
+
+.privacy-badge {
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.privacy-badge:hover {
+  transform: translateY(-1px);
+}
+
+/* 8. Text input focus effect */
 .message-composer {
-  overflow: hidden;
-  background: #fbfcff;
-  border: 1px solid #dce5f0;
-  border-radius: 14px;
+  transition: border-color 220ms ease, box-shadow 220ms ease,
+    background 220ms ease;
+}
+
+.message-composer:hover {
+  border-color: #bdcfe8;
 }
 
 .message-composer:focus-within {
-  border-color: #6d93df;
-  box-shadow: 0 0 0 3px rgba(49, 95, 206, 0.08);
+  border-color: #6e94e7;
+  background: #fff;
+  box-shadow:
+    0 0 0 4px rgba(49, 95, 206, .08),
+    0 8px 22px rgba(49, 95, 206, .045);
 }
 
 .message-composer textarea {
-  display: block;
-  width: 100%;
-  min-height: 150px;
-  padding: 17px;
-  color: #20334b;
-  background: transparent;
-  border: 0;
-  outline: none;
-  resize: vertical;
-  line-height: 1.8;
+  transition: background 220ms ease;
 }
 
-.composer-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px;
-  border-top: 1px solid #e6edf5;
+.composer-tools button,
+.composer-toolbar button {
+  transition: transform 180ms ease, background 180ms ease,
+    border-color 180ms ease, box-shadow 180ms ease;
 }
 
-.composer-tools {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
+.composer-tools button:hover,
+.composer-toolbar button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(31, 58, 98, .055);
 }
 
+.composer-tools button:active,
+.composer-toolbar button:active {
+  transform: scale(.97);
+}
+
+/* 9. Main CTA animated blue-teal button */
 .analyze-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-  min-height: 54px;
-  margin-top: 20px;
-  padding: 14px 18px;
-  color: #fff;
-  background: linear-gradient(105deg, #315fce, #178f9f);
-  border: 0;
-  border-radius: 12px;
-  font-weight: 700;
-  box-shadow: 0 6px 16px rgba(49, 95, 206, 0.16);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease,
+    filter 220ms ease;
+}
+
+.analyze-button::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -60%;
+  left: -70%;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, .22),
+    transparent
+  );
+  transform: rotate(20deg);
+  transition: left 650ms ease;
+  pointer-events: none;
+}
+
+.analyze-button:hover::after {
+  left: 130%;
 }
 
 .analyze-button:hover {
-  filter: brightness(1.05);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 28px rgba(49, 95, 206, .23),
+    0 3px 8px rgba(11, 158, 170, .10);
+  filter: saturate(1.08);
+}
+
+.analyze-button svg {
+  transition: transform 220ms ease;
+}
+
+.analyze-button:hover svg:last-child {
+  transform: translateX(4px);
+}
+
+.analyze-button:active {
+  transform: translateY(0) scale(.995);
 }
 
 .analyze-button:disabled {
   cursor: wait;
-  opacity: 0.7;
+  opacity: .75;
+  transform: none;
 }
 
-.privacy-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin-top: 15px;
-  color: #72839a;
-  font-size: 11px;
-  line-height: 1.7;
+/* 10. Result panel reveal */
+.result-panel {
+  animation: scResultEnter 550ms cubic-bezier(.2, .7, .2, 1) both;
 }
 
-.score-track {
-  overflow: hidden;
-  height: 8px;
-  background: #e8eef6;
-  border-radius: 20px;
+@keyframes scResultEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 11. Risk score entrance */
+.score-circle {
+  animation: scScorePop 650ms 100ms cubic-bezier(.2, .8, .2, 1) both;
+}
+
+@keyframes scScorePop {
+  0% { opacity: 0; transform: scale(.82); }
+  70% { opacity: 1; transform: scale(1.045); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 .score-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #3268d2, #12a69c);
-  border-radius: inherit;
+  transition: width 900ms cubic-bezier(.2, .7, .2, 1);
 }
 
-.score-circle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 92px;
-  height: 92px;
-  background: #eff9f5;
-  border: 1px solid #cceade;
-  border-radius: 50%;
-}
-
-.score-circle strong {
-  color: #128269;
-  font-size: 28px;
-}
-
-.reason-list,
-.recommendation-list {
-  display: grid;
-  gap: 10px;
-  padding-left: 0;
-  list-style: none;
-}
-
+/* 12. Result reasons staggered entrance */
 .reason-list li,
 .recommendation-list li {
-  padding: 14px;
-  color: #40536b;
-  background: #f7f9fd;
-  border: 1px solid #e4ebf4;
-  border-radius: 12px;
-  line-height: 1.75;
+  transition: transform 220ms ease, border-color 220ms ease,
+    box-shadow 220ms ease, background 220ms ease;
+  animation: scListItemEnter 450ms both;
 }
 
-.ai-analysis-text {
-  padding: 17px;
-  color: #334b67;
-  background: #f0f6ff;
-  border: 1px solid #dce8f7;
-  border-radius: 12px;
-  line-height: 1.85;
-  overflow-wrap: anywhere;
-  white-space: pre-wrap;
+.reason-list li:nth-child(2),
+.recommendation-list li:nth-child(2) {
+  animation-delay: 70ms;
 }
 
-.safety-tips {
-  padding: 38px 0;
+.reason-list li:nth-child(3),
+.recommendation-list li:nth-child(3) {
+  animation-delay: 140ms;
 }
 
-.safety-tips > h2 {
-  color: #1c304b;
+.reason-list li:nth-child(4),
+.recommendation-list li:nth-child(4) {
+  animation-delay: 210ms;
 }
 
-.tips-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 15px;
+@keyframes scListItemEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+.reason-list li:hover,
+.recommendation-list li:hover {
+  transform: translateY(-2px);
+  border-color: #c6d8f2;
+  box-shadow: 0 8px 20px rgba(31, 58, 98, .055);
+}
+
+.recommendation-number {
+  transition: transform 200ms ease, background 200ms ease;
+}
+
+.recommendation-list li:hover .recommendation-number {
+  transform: scale(1.07);
+}
+
+/* 13. Gemini explanation highlight */
+.ai-analysis-section .ai-analysis-text {
+  background: linear-gradient(115deg, #eef4ff, #effaf9);
+  box-shadow: inset 3px 0 0 #3977d8;
+  animation: scRiseIn 450ms both;
+}
+
+/* 14. Safety cards hover and accent */
 .tip {
-  padding: 20px;
-  background: #fff;
-  border: 1px solid #e1e8f2;
-  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 240ms ease, border-color 240ms ease,
+    box-shadow 240ms ease;
 }
 
-.tip h3 {
-  color: #203650;
+.tip::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  right: -48px;
+  bottom: -52px;
+  border-radius: 50%;
+  background: rgba(49, 95, 206, .045);
+  transition: transform 300ms ease, background 300ms ease;
+  pointer-events: none;
+}
+
+.tip:hover {
+  transform: translateY(-5px);
+  border-color: #c9d9ef;
+  box-shadow: 0 14px 30px rgba(31, 58, 98, .075);
+}
+
+.tip:hover::after {
+  transform: scale(1.6);
+  background: rgba(11, 158, 170, .075);
 }
 
 .tip-number {
-  color: #2864ce;
+  display: inline-block;
+  transition: transform 220ms ease;
 }
 
-.app-footer {
-  padding: 28px 0;
-  margin-top: 24px;
-  text-align: center;
-  border-top: 1px solid #e1e8f2;
+.tip:hover .tip-number {
+  transform: translateX(4px);
 }
 
-.app-footer strong {
-  color: #2864ce;
+/* 15. Links and voice controls */
+.voice-button,
+.text-button {
+  transition: transform 180ms ease, background 180ms ease,
+    color 180ms ease;
 }
 
+.voice-button:hover,
+.text-button:hover {
+  transform: translateY(-1px);
+}
+
+/* 16. Accessible keyboard focus */
+button:focus-visible,
+textarea:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(49, 95, 206, .3);
+  outline-offset: 3px;
+}
+
+/* 17. Mobile touch devices */
 @media (max-width: 640px) {
-  .main-content {
-    width: calc(100% - 26px);
-  }
-
-  .topbar {
-    padding: 13px;
-  }
-
-  .hero {
-    padding-top: 45px;
-  }
-
   .hero h1 {
-    letter-spacing: -1.5px;
+    animation-delay: 80ms;
   }
 
+  .analyzer-panel:hover {
+    transform: none;
+  }
+
+  .tip:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* 18. Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .app-shell,
+  .main-content,
+  .hero .eyebrow,
+  .hero h1,
+  .hero h1 span,
+  .hero > p,
+  .status-dot,
   .analyzer-panel,
-  .result-panel {
-    padding: 18px 14px;
-    border-radius: 16px;
+  .result-panel,
+  .score-circle,
+  .reason-list li,
+  .recommendation-list li,
+  .ai-analysis-section .ai-analysis-text {
+    animation: none !important;
   }
 
-  .panel-heading {
-    flex-wrap: wrap;
-  }
-
-  .tips-grid {
-    grid-template-columns: 1fr;
+  .app-shell *,
+  .app-shell *::before,
+  .app-shell *::after {
+    transition-duration: .01ms !important;
   }
 }
